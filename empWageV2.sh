@@ -8,6 +8,7 @@ empCheck=$(( RANDOM%2 ))
 
 #Selection
 if [ $empCheck -eq $IS_PRESENT ]
+<<<<<<< HEAD
 then
     echo "Employee is present"
 else
@@ -48,3 +49,10 @@ else
 fi
 salary=$(( EMP_RATE_PER_HR * empHrs ))
 
+=======
+then 
+    echo "Employee is present"
+else 
+    echo "Employee is absent"
+fi 
+>>>>>>> uc-1-shell
