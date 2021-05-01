@@ -65,6 +65,22 @@ do
        totalworkingHours=$(( totalworkingHours + empHrs ))
 done
 salary=$(( totalworkingHours * WAGE_PER_HR ))
+while [ $totalworkingDays -lt $NO_OF_WORKING_DAYS ] && [ $totalworkingHours -lt $MAX_WORKING_HOURS ]
+
+do
+       employeeCheck=$(( RANDOM%3 ))
+
+       totalworkingDays=$(( $totalworkingDays + 1 ))
+       #condition
+       case $employeeCheck in
+                 $IS_PRESENT_FULL_TIME) empHrs=8 ;;
+                 $IS_PRESENT_HALF_TIME) empHrs=4 ;;
+                 *) empHrs=0 ;;
+       esac
+       totalworkingHours=$(( $totalworkingHours + $empHrs ))
+
+done
+salary=$(( $EMP_RATE_PER_HR * $totalworkingHours ))
 
 function getWorkHours(){
           local empCheck=$1
