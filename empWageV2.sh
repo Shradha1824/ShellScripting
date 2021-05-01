@@ -1,10 +1,18 @@
-#! /bin/bash -x
+#! /bin/bash
+
 
 #Constants
 IS_PRESENT=1
+EMP_RATE_PER_HR=20
+IS_PRESENT_FULL_TIME=1
+IS_PRESENT_HALF_TIME=2
+MAX_WORKING_DAYS=20
 
 #Variables
 empCheck=$(( RANDOM%2 ))
+empCheck1=$(( RANDOM%3 ))
+totalworkingHours=0
+totalworkingDays=0
 
 #Selection
 if [ $empCheck -eq $IS_PRESENT ]
@@ -14,40 +22,48 @@ then
 else
     echo "Employee is absent"
 fi
-#Constants
-IS_PRESENT=1
-EMP_RATE_PER_HR=20
-
-#Variables
-empCheck=$(( RANDOM%2 ))
-
 #Selection
 if [ $empCheck -eq $IS_PRESENT ]
 then 
       empHrs=8
 else 
       empHrs=0
-fi 
+fi  
 salary=$(( EMP_RATE_PER_HR * empHrs ))
-#Constants
-IS_PRESENT_FULL_TIME=1
-IS_PRESENT_HALF_TIME=2
-EMP_RATE_PER_HR=20
-
-#Variables
-empCheck=$(( RANDOM%3 ))
-
+echo $salary
 #Selection
-if [ $empCheck -eq $IS_PRESENT_FULL_TIME ]
+if [ $empCheck1 -eq $IS_PRESENT_FULL_TIME ]
 then
       empHrs=8
-elif [ $empCheck -eq $IS_PRESENT_HALF_TIME ]
+elif [ $empCheck1 -eq $IS_PRESENT_HALF_TIME ]
 then
       empHrs=4
 else
       empHrs=0
 fi
 salary=$(( EMP_RATE_PER_HR * empHrs ))
+echo $salary
+case $empCheck1 in
+       $IS_PRESENT_FULL_TIME) empHrs=8;;
+       $IS_PRESENT_HALF_TIME) empHrs=4;;
+       *) empHrs=0;;
+esac
+salary=$(( EMP_RATE_PER_HR * empHrs ))
+while [ $totalworkingDays -ne $MAX_WORKING_DAYS ]
+do
+       employeeCheck=$((RANDOM%3))
+       ((totalworkingDays++))
+       case $empCheck1 in
+              $IS_PRESENT_FULL_TIME)
+                     empHrs=8 ;;
+              $IS_PRESENT_HALF_TIME)
+                     empHrs=4 ;;
+                                  *)
+                     empHrs=0 ;;
+       esac
+       totalworkingHours=$(( totalworkingHours + empHrs ))
+done
+salary=$(( totalworkingHours * WAGE_PER_HR ))
 
 =======
 then 
