@@ -7,6 +7,7 @@ EMP_RATE_PER_HR=20
 IS_PRESENT_FULL_TIME=1
 IS_PRESENT_HALF_TIME=2
 MAX_WORKING_DAYS=20
+NO_OF_WORKING_DAYS=5
 
 #Variables
 empCheck=$(( RANDOM%2 ))
@@ -65,10 +66,24 @@ do
 done
 salary=$(( totalworkingHours * WAGE_PER_HR ))
 
-=======
-then 
-    echo "Employee is present"
-else 
-    echo "Employee is absent"
-fi 
->>>>>>> uc-1-shell
+function getWorkHours(){
+          local empCheck=$1
+          local empHrs=0
+           case $empCheck in
+                 $IS_PRESENT_FULL_TIME) empHrs=8 ;;
+                 $IS_PRESENT_HALF_TIME) empHrs=4 ;;
+                 *) empHrs=0 ;;
+         esac
+         echo $empHrs
+}
+while [ $totalworkingDays -lt $NO_OF_WORKING_DAYS ] && [ $totalworkingHours -lt $MAX_WORKING_HOURS ]
+
+do
+       empCheck1=$(( RANDOM%3 ))
+       totalworkingDays=$(( $totalworkingDays + 1 ))
+       empHrs="$( getWorkHours $empCheck1 )"
+       totalworkingHours=$(( $totalworkingHours + $empHrs ))
+
+done
+salary=$(( $EMP_RATE_PER_HR * $totalworkingHours ))
+#salary=$(( EMP_RATE_PER_HR * empHrs ))
