@@ -38,3 +38,9 @@ else
 fi
 salary=$(( EMP_RATE_PER_HR * empHrs ))
 echo $salary
+case $empCheck1 in
+       $IS_PRESENT_FULL_TIME) empHrs=8;;
+       $IS_PRESENT_HALF_TIME) empHrs=4;;
+       *) empHrs=0;;
+esac
+salary=$(( EMP_RATE_PER_HR * empHrs ))
