@@ -14,6 +14,7 @@ empCheck=$(( RANDOM%2 ))
 empCheck1=$(( RANDOM%3 ))
 totalworkingHours=0
 totalworkingDays=0
+totalEmpHr=0
 
 #Selection
 if [ $empCheck -eq $IS_PRESENT ]
@@ -103,3 +104,14 @@ do
 done
 salary=$(( $EMP_RATE_PER_HR * $totalworkingHours ))
 #salary=$(( EMP_RATE_PER_HR * empHrs ))
+while [ $totalworkingDays -lt $NO_OF_WORKING_DAYS ] && [ $totalworkingHours -lt $MAX_WORKING_HOURS ]
+
+do
+       totalworkingDays=$(( $totalworkingDays + 1 ))
+       empHrs="$( getWorkHours $((RANDOM%3)) )"
+       totalworkingHours=$(( $totalworkingHours + $empHrs ))
+       dailyWage[$totalworkingDays]=$(( empHrs * EMP_RATE_PER_HR ))
+       #dailyWage[1]=4*20=80
+done
+totalsalary=$(( $EMP_RATE_PER_HR * $totalworkingHours ))
+#echo ${dailyWage[*]}
